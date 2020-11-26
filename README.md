@@ -15,6 +15,7 @@
 ## 使用
 
 **后台管理**
+
  第一步: 数据库采用CodeFirst  ,Model在 UIFrameworkCore.Model.DataBase中创建(可参考ModelBaseForDb)进行拓展
  
  第二步: 在Model的SearchCondition 按需赋值(搜索关键字)
@@ -24,6 +25,7 @@
  第四步:将**UI框架** 设置为 **启动项目** 并运行
  
 **插件**
+
 请参照**Plugins.ManageCenter.ManageCenter.cs**中的写法,需要使用特性将插件注入IOC容器,通过接口来解耦  接口定义在 UIFrameworkCore.Interface下
 
  注: 如果需要插件间互相通信 需要使用单例模式并使用构造函数注入,具体的后续会给示例代码
