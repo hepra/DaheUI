@@ -1,0 +1,389 @@
+﻿<UserControl x:Class="UI框架.KeyboardControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:pu="clr-namespace:Panuon.UI.Silver;assembly=Panuon.UI.Silver"
+             mc:Ignorable="d" Height="350" Width="525">
+    <UserControl.Resources>
+        <Style x:Key="MyFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Control}">
+                        <Grid Margin="4 2">
+                            <Rectangle x:Name="r1" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 2"/>
+                            <Border x:Name="border" Width="{TemplateBinding ActualWidth}" Height="{TemplateBinding ActualHeight}"  CornerRadius="2" BorderThickness="1" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TypeRadioButton" TargetType="CheckBox">
+            <Setter Property="IsChecked" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border CornerRadius="10"  
+                            Background="Transparent" x:Name="bor"
+                            BorderThickness="2"  BorderBrush="White"
+                            Height="{TemplateBinding Height}" Width="{TemplateBinding Width}">
+                            <TextBlock  x:Name="txt"  Foreground="White" FontWeight="Bold"  HorizontalAlignment="Center"  FontSize="15" TextWrapping="Wrap"  VerticalAlignment="Center"
+                                         Text="小写"
+                                        ></TextBlock>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger  Property="IsChecked" Value="True">
+                                <Setter  TargetName="bor" Property="Background" Value="#1E9FFF"/>
+                                <Setter  TargetName="bor" Property="BorderThickness" Value="0"/>
+                                <Setter  TargetName="txt" Property="Text" Value="大写"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+        <Style x:Key="ShadowStyle">
+            <Setter Property="Control.Foreground" Value="LightGray" />
+        </Style>
+
+        <Style x:Key="InformButton" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Background" Value="#F4F4F4"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Foreground" Value="#FF546578"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisual}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" 
+                		BorderThickness="1" CornerRadius="5"
+                		 SnapsToDevicePixels="False" BorderBrush="#FFEEEEEE" Background="{TemplateBinding Background}">
+                            <Grid >
+                                <ContentPresenter HorizontalAlignment="Center"  
+                				VerticalAlignment="Center"  x:Name="contentShadow" 
+                				Style="{StaticResource ShadowStyle}"/>
+                                <ContentPresenter HorizontalAlignment="Center"  
+                				VerticalAlignment="Center" x:Name="content"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                                <Setter Property="Foreground" Value="#FF4788c8" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#FF5A9ADA"></Setter>
+                                <Setter Property="Foreground" Value="#F4F4F4"></Setter>
+
+                                <Setter TargetName="content" Property="RenderTransform" >
+                                    <Setter.Value>
+                                        <TranslateTransform Y="1.0" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsDefaulted" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                                <Setter Property="Foreground" Value="Gray" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+    <TabControl  
+              Background="White"
+        pu:TabControlHelper.TabControlStyle="Card"
+                pu:TabControlHelper.ItemsHeight="40"
+                pu:TabControlHelper.ItemsSelectedBackground="{StaticResource NiceBlue}">
+        <TabItem Header="键盘"  FontSize="20" >
+            <Grid Width="525" Height="290">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="82*"/>
+                    <ColumnDefinition Width="443*"/>
+                </Grid.ColumnDefinitions>
+                <Border Name="keyboard" BorderBrush="{x:Null}" BorderThickness="2" Margin="0" Grid.ColumnSpan="2">
+                    <Border BorderThickness="1,1,1,1"  Padding="5" BorderBrush="#FFEEEEEE">
+                        <Border.Background>
+                            <SolidColorBrush Color="#FFC7D3DF"></SolidColorBrush>
+                        </Border.Background>
+                        <Border BorderThickness="1,5,1,1">
+
+                            <StackPanel Orientation="Vertical">
+                                <!--row1-->
+                                <StackPanel Orientation="Horizontal" >
+
+                                    <Button Name="CmdQ" Style="{StaticResource InformButton}"  Click="Button_Click">
+                                        <TextBlock><Run Text="Q"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdW" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="W"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdE" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="E" /></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdR" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="R"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdT" Style="{StaticResource InformButton}"  Click="Button_Click">
+                                        <TextBlock><Run Text="T"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdY" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="Y"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdU" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="U"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdI" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="I"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdO" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="O"/></TextBlock>
+                                    </Button>
+                                    <Button Name="CmdP" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="P"/></TextBlock>
+                                    </Button>
+                                    <Button Name="CmdBack" Width="40" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="←"/></TextBlock>
+                                    </Button>
+
+
+
+                                </StackPanel>
+                                <!--row2-->
+                                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+
+                                    <Button Name="CmdA" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="A"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdS" Style="{StaticResource InformButton}"  Click="Button_Click">
+                                        <TextBlock><Run Text="S"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdD" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="D"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdF" Style="{StaticResource InformButton}"  Click="Button_Click" >
+                                        <TextBlock><Run Text="F"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdG" Style="{StaticResource InformButton}"  Click="Button_Click">
+                                        <TextBlock><Run Text="G"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdH" Style="{StaticResource InformButton}"  Click="Button_Click" >
+                                        <TextBlock><Run Text="H"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdJ" Style="{StaticResource InformButton}"  Click="Button_Click">
+                                        <TextBlock><Run Text="J"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdK" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="K"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdL" Style="{StaticResource InformButton}"  Click="Button_Click">
+                                        <TextBlock><Run Text="L"/></TextBlock>
+                                    </Button>
+
+
+
+
+                                </StackPanel>
+                                <!--row3-->
+                                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                                    <CheckBox  Visibility="Collapsed" Margin="0,0,10,0" Style="{StaticResource TypeRadioButton}"  Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" 
+                                              Width="60" Height="60"  IsChecked="{Binding Is大写,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+
+                                    <Button Name="CmdZ" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="Z"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdX" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="X"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdC" Style="{StaticResource InformButton}" Click="Button_Click" >
+                                        <TextBlock><Run Text="C"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdV" Style="{StaticResource InformButton}" Click="Button_Click" >
+                                        <TextBlock><Run Text="V"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdB" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock  ><Run Text="B"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdN" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="N"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="CmdM" Style="{StaticResource InformButton}" Click="Button_Click">
+                                        <TextBlock><Run Text="M"/></TextBlock>
+                                    </Button>
+
+                                    <!--<Button Name="CmdZ" Style="{StaticResource InformButton}" Click="Button_Click" >
+                                <TextBlock><Run Text="Z"/></TextBlock>
+                            </Button>-->
+                                    <Button Name="cmdDemical" Style="{StaticResource InformButton}" Click="Button_Click"   Visibility="Collapsed">
+                                        <TextBlock><Run Text="."/></TextBlock>
+                                    </Button>
+
+
+
+                                </StackPanel>
+                                <!--row4-->
+
+                                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center"  Visibility="Collapsed">
+
+                                    <Button Name="InputSwitch" Visibility="Collapsed" Style="{StaticResource InformButton}" Width="162" Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock >输入切换: <Run Foreground="Black"  FontWeight="Bold" Text="{Binding CurrentInput}"/></TextBlock>
+                                    </Button>
+
+
+                                    <Button Name="cmdSpace" Style="{StaticResource InformButton}" Width="168" Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock><Run Text="Space"/></TextBlock>
+                                    </Button>
+                                    <Button Name="cmdEnter"  Background="#FF8BA5C6" Foreground="#F4F4F4"  Style="{StaticResource InformButton}" Width="85" Click="Button_Click" >
+                                        <TextBlock FontSize="20"><Run Text="确认"/></TextBlock>
+                                    </Button>
+                                    <Button Name="CmdClose" Style="{StaticResource InformButton}" Width="60"  Click="Button_Click" Content="关 闭" Background="#FF8BA5C6" Foreground="#F4F4F4"/>
+
+                                    <!--<Button Name="cmdup" Style="{StaticResource InformButton}" Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock><Run Text="↑"/></TextBlock>
+                                    </Button>
+                            
+                                    <Button Name="cmddown" Style="{StaticResource InformButton}" Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock><Run Text="↓"/></TextBlock>
+                                    </Button>
+                                    <Button Name="cmdright" Style="{StaticResource InformButton}" Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock><Run Text="→"/></TextBlock>
+                                    </Button>-->
+
+                                </StackPanel>
+                                <WrapPanel  HorizontalAlignment="Center">
+                                    <Button Name="cmd0" Style="{StaticResource InformButton}" Width="40"  Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock><Run Text="0"/></TextBlock>
+                                    </Button>
+                                    <Button Name="cmd1" Style="{StaticResource InformButton}" Width="40" Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock><Run Text="1"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="cmd2" Style="{StaticResource InformButton}" Width="40"   Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock><Run Text="2"/></TextBlock>
+                                    </Button>
+                                    <Button Name="cmd3" Style="{StaticResource InformButton}" Width="40"  Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock><Run Text="3"/></TextBlock>
+                                    </Button>
+                                    <Button Name="cmd4" Style="{StaticResource InformButton}" Width="40" Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock><Run Text="4"/></TextBlock>
+                                    </Button>
+                                    <Button Name="cmd5" Style="{StaticResource InformButton}" Width="40" Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock><Run Text="5"/></TextBlock>
+                                    </Button>
+                                    <Button Name="cmd6" Style="{StaticResource InformButton}" Width="40"  Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock><Run Text="6"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="cmd7" Style="{StaticResource InformButton}"  Width="40" Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock><Run Text="7"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="cmd8" Style="{StaticResource InformButton}" Width="40"  Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock><Run Text="8"/></TextBlock>
+                                    </Button>
+
+                                    <Button Name="cmd9" Style="{StaticResource InformButton}" Width="40"  Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                                        <TextBlock><Run Text="9"/></TextBlock>
+                                    </Button>
+                              
+                              
+                       
+                                </WrapPanel>
+
+                            </StackPanel>
+
+
+                        </Border>
+
+                    </Border>
+                </Border>
+            </Grid>
+        </TabItem>
+        <!--<TabItem Header="数字"  >
+            <WrapPanel  HorizontalAlignment="Center">
+                <Button Name="cmd7" Style="{StaticResource InformButton}"  Width="160" Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                    <TextBlock><Run Text="7"/></TextBlock>
+                </Button>
+
+                <Button Name="cmd8" Style="{StaticResource InformButton}" Width="160"  Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                    <TextBlock><Run Text="8"/></TextBlock>
+                </Button>
+
+                <Button Name="cmd9" Style="{StaticResource InformButton}" Width="160"  Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                    <TextBlock><Run Text="9"/></TextBlock>
+                </Button>
+                <Button Name="cmd4" Style="{StaticResource InformButton}" Width="160" Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                    <TextBlock><Run Text="4"/></TextBlock>
+                </Button>
+                <Button Name="cmd5" Style="{StaticResource InformButton}" Width="160" Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                    <TextBlock><Run Text="5"/></TextBlock>
+                </Button>
+                <Button Name="cmd6" Style="{StaticResource InformButton}" Width="160"  Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                    <TextBlock><Run Text="6"/></TextBlock>
+                </Button>
+
+                <Button Name="cmd1" Style="{StaticResource InformButton}" Width="160" Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                    <TextBlock><Run Text="1"/></TextBlock>
+                </Button>
+
+                <Button Name="cmd2" Style="{StaticResource InformButton}" Width="160"   Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                    <TextBlock><Run Text="2"/></TextBlock>
+                </Button>
+                <Button Name="cmd3" Style="{StaticResource InformButton}" Width="160"  Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                    <TextBlock><Run Text="3"/></TextBlock>
+                </Button>
+                <Button Name="cmd0" Style="{StaticResource InformButton}" Width="493"  Click="Button_Click" Background="#FF8BA5C6" Foreground="#F4F4F4">
+                    <TextBlock><Run Text="0"/></TextBlock>
+                </Button>
+            </WrapPanel>
+
+        </TabItem>-->
+        <TabItem Header="手写" FontSize="20" >
+            <InkCanvas Name="myHandWrite"  LostTouchCapture="myHandWrite_LostTouchCapture"
+                                                   GotMouseCapture="myHandWrite_GotMouseCapture"
+                                                   LostMouseCapture="myHandWrite_LostMouseCapture"></InkCanvas>
+
+        </TabItem>
+    </TabControl>
+
+</UserControl>

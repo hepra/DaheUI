@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{75B7CC16-AC7B-4BC9-B6E9-66D0B1E65384}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Plugins.Player</RootNamespace>
+    <AssemblyName>Plugins.Player</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DMSkin.Core, Version=3.0.0.1000, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\WPFUI框架\packages\DMSkin.Core.3.0.0.1000\lib\net40\DMSkin.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Vlc.DotNet.Core, Version=3.0.1.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>..\WPFUI框架\packages\Vlc.DotNet.Core.3.0.1-develop356\lib\net45\Vlc.DotNet.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Core.Interops, Version=3.0.1.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>..\WPFUI框架\packages\Vlc.DotNet.Core.Interops.3.0.1-develop356\lib\net45\Vlc.DotNet.Core.Interops.dll</HintPath>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Forms, Version=3.0.1.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>..\WPFUI框架\packages\Vlc.DotNet.Forms.3.0.1-develop356\lib\net45\Vlc.DotNet.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PlayerControl.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VideoPlayer\PopopHelper.cs" />
+    <Compile Include="VideoPlayer\VideoUserControl.xaml.cs">
+      <DependentUpon>VideoUserControl.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UIFrameworkCore\UIFrameworkCore.csproj">
+      <Project>{5faf0989-3e67-4cbd-ad0c-9d4e8d3340cf}</Project>
+      <Name>UIFrameworkCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="VideoPlayer\style\Base.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="VideoPlayer\style\CommonStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="VideoPlayer\style\ResourceDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="VideoPlayer\style\WemewCommonStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="VideoPlayer\VideoUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="VideoPlayer\img\delete.png" />
+    <Content Include="VideoPlayer\img\drop-down.png" />
+    <Content Include="VideoPlayer\img\dropup.png" />
+    <Content Include="VideoPlayer\img\edit-2.png" />
+    <Content Include="VideoPlayer\img\erase_filled.png" />
+    <Content Include="VideoPlayer\img\ic_full %282%29.png" />
+    <Content Include="VideoPlayer\img\ic_full.png" />
+    <Content Include="VideoPlayer\img\ic_half.png" />
+    <Content Include="VideoPlayer\img\ic_menu_pause.png" />
+    <Content Include="VideoPlayer\img\ic_playlists_add.png" />
+    <Content Include="VideoPlayer\img\ic_playlists_arrow_l.png" />
+    <Content Include="VideoPlayer\img\ic_playlists_arrow_r.png" />
+    <Content Include="VideoPlayer\img\ic_playlists_danxunhuan_hover.png" />
+    <Content Include="VideoPlayer\img\ic_playlists_danxunhuan_nor.png" />
+    <Content Include="VideoPlayer\img\ic_playlists_liebiaoxunhuan_hover.png" />
+    <Content Include="VideoPlayer\img\ic_playlists_liebiaoxunhuan_nor.png" />
+    <Content Include="VideoPlayer\img\ic_playlists_shunxu_hover.png" />
+    <Content Include="VideoPlayer\img\ic_playlists_shunxu_nor.png" />
+    <Content Include="VideoPlayer\img\ic_playlists_suiji_hover.png" />
+    <Content Include="VideoPlayer\img\ic_playlists_suiji_nor.png" />
+    <Content Include="VideoPlayer\img\ic_关闭.png" />
+    <Content Include="VideoPlayer\img\ic_最小.png" />
+    <Content Include="VideoPlayer\img\louder_filled.png" />
+    <Content Include="VideoPlayer\img\move-down.png" />
+    <Content Include="VideoPlayer\img\move-up.png" />
+    <Content Include="VideoPlayer\img\pause_filled.png" />
+    <Content Include="VideoPlayer\img\play.png" />
+    <Content Include="VideoPlayer\img\player back_filled.png" />
+    <Content Include="VideoPlayer\img\player forward_filled.png" />
+    <Content Include="VideoPlayer\img\play_filled.png" />
+    <Content Include="VideoPlayer\img\save.png" />
+    <Content Include="VideoPlayer\img\suspend.png" />
+    <Content Include="VideoPlayer\img\turn off_filled.png" />
+    <Content Include="VideoPlayer\img\type.png" />
+    <Content Include="VideoPlayer\img\全屏.png" />
+    <Content Include="VideoPlayer\img\切片1.png" />
+    <Content Include="VideoPlayer\img\切片2.png" />
+    <Content Include="VideoPlayer\img\切片3.png" />
+    <Content Include="VideoPlayer\img\文件夹.png" />
+    <Content Include="VideoPlayer\img\视频.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

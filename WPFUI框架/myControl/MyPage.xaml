@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="UI框架.Styles.MyPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UI框架.Styles"
+     xmlns:pu="clr-namespace:Panuon.UI.Silver;assembly=Panuon.UI.Silver"
+             mc:Ignorable="d" 
+             Background="Transparent"
+             d:DesignHeight="1080" d:DesignWidth="1920">
+    <UserControl.Resources>
+        <LinearGradientBrush  x:Key="red渐变画刷" StartPoint="1,0" EndPoint="1,1">
+            <GradientStop Color="#21DDE6" Offset="0" />
+            <GradientStop Color="#21DDE6" Offset="0.5" />
+            <GradientStop Color="#4795D1" Offset="0.5" />
+            <GradientStop Color="#4795D1" Offset="1" />
+        </LinearGradientBrush>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Background="Black" Opacity="0.4" Grid.RowSpan="2" CornerRadius="20" Margin="0"></Border>
+        <Grid Margin="20" x:Name="gridListBox"  VerticalAlignment="Center">
+            <ListBox  x:Name="myList"   Grid.Column="1"    ScrollViewer.CanContentScroll="True"   WindowChrome.IsHitTestVisibleInChrome="True" 
+                                 ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled"   
+                                 ItemContainerStyle="{StaticResource ListBoxItemEmptyTemplate1234}" 
+                      HorizontalContentAlignment="Center" HorizontalAlignment="Center"
+                          ItemsSource="{Binding CurrentPageDataList }" >
+                <ListBox.Template>
+                    <ControlTemplate TargetType="{x:Type ListBox}">
+                        <WrapPanel Orientation="Horizontal" IsItemsHost="True" ScrollViewer.CanContentScroll="True"   
+                                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                    </ControlTemplate>
+                </ListBox.Template>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="1"   Grid.Column="1"  Width='250' Height="70"
+                      pu:ButtonHelper.CornerRadius="10"
+                    Content="上一页"  HorizontalAlignment="Center"
+                             Command="{Binding Path=Prev}"  Margin="50,0,50,0"  Visibility="{Binding 上一页Visibility}"
+                            Foreground="White"  FontSize="35" Background="{StaticResource  myBlue}"></Button>
+            <TextBlock Grid.Column="2" Width="500" FontSize="60" Foreground="White"  Visibility="{Binding 上一页Visibility}"    VerticalAlignment="Center" HorizontalAlignment="Center"  TextAlignment="Center"><Run Text="{Binding Index}"></Run> / <Run Text="{Binding Total}"></Run></TextBlock>
+            <Button Grid.Row="1"   Grid.Column="3"  Width='250' Height="70" Content="下一页"  HorizontalAlignment="Center"
+                                 pu:ButtonHelper.CornerRadius="10"
+                               Margin="50,0,50,0" Visibility="{Binding 下一页Visibility}" Command="{Binding Path=Next}"
+                            Foreground="White"  FontSize="35" Background="{StaticResource myBlue}"></Button>
+        </Grid>
+    </Grid>
+</UserControl>

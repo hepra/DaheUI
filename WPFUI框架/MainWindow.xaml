@@ -1,0 +1,381 @@
+﻿<Window x:Class="UI框架.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:pu="clr-namespace:Panuon.UI.Silver;assembly=Panuon.UI.Silver"
+        xmlns:loacl="clr-namespace:UI框架"
+        xmlns:gu="https://github.com/GuOrg/Gu.Wpf.FlipView"
+        mc:Ignorable="d"
+        WindowState="Normal" 
+            WindowChrome.WindowChrome="{DynamicResource WindowChromeKey}"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Height="675"  Width="1200"
+        BorderBrush="Transparent"
+        AllowsTransparency="True"
+          xmlns:converter="clr-namespace:UI框架.converter" xmlns:loacl1="clr-namespace:UI框架.myControl"
+        Background="White"
+        ResizeMode="CanResize" 
+       Closed="Window_Closed"
+        Title="MainWindow"  >
+    <Window.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Panuon.UI.Silver;component/Control.xaml" />
+                <ResourceDictionary Source="/Styles/Base.xaml" />
+                <ResourceDictionary Source="/Styles/CommonStyles.xaml" />
+                <ResourceDictionary Source="/Styles/ResourceDictionary.xaml" />
+                <ResourceDictionary Source="/Styles/DatePicker.xaml" />
+                <ResourceDictionary Source="/Styles/GlassButton.xaml" />
+                <ResourceDictionary Source="/Styles/GlassButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <WindowChrome x:Key="WindowChromeKey">
+                <WindowChrome.ResizeBorderThickness>
+                    <Thickness>5</Thickness>
+                </WindowChrome.ResizeBorderThickness>
+                <WindowChrome.CaptionHeight>0</WindowChrome.CaptionHeight>
+            </WindowChrome>
+            <!--<FontFamily x:Key="kaiti">/Presentation/#kaiti</FontFamily>-->
+            <converter:BrushToColorConverter x:Key="BrushToColorConverter" />
+            <converter:HalfConverter x:Key="HalfConverter" />
+            <Style x:Key="PlayMusic" TargetType="CheckBox">
+                <Setter Property="IsChecked" Value="True"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="#999999"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="CheckBox">
+                            <Grid>
+                                <StackPanel  Orientation="Horizontal" Name="PART_Background" Opacity="0.9">
+                                    <Image  x:Name="IconImage"  Width="128" Height="128"  Stretch="Uniform"  UseLayoutRounding="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                                </StackPanel>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger  Property="IsChecked" Value="False">
+                                    <Setter  TargetName="IconImage" Property="Source" Value="img/music-off.png"/>
+                                </Trigger>
+                                <Trigger  Property="IsChecked" Value="True">
+                                    <Setter  TargetName="IconImage" Property="Source" Value="img/music.png"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" TargetName="PART_Background" Value="1"></Setter>
+                                </Trigger>
+
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+
+            <Style TargetType="TextBlock" x:Key="my小号字">
+                <Setter Property="Foreground" Value="#F4F4F4"></Setter>
+                <Setter Property="FontSize" Value="14"></Setter>
+                <Setter Property="FontFamily" Value="微软雅黑"></Setter>
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                <Setter Property="TextWrapping" Value="Wrap"></Setter>
+            </Style>
+            <Style TargetType="TextBlock" x:Key="my中号字">
+                <Setter Property="Foreground" Value="#F4F4F4"></Setter>
+                <Setter Property="FontSize" Value="18"></Setter>
+                <Setter Property="FontFamily" Value="微软雅黑"></Setter>
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            </Style>
+            <Style TargetType="TextBlock" x:Key="my大号字">
+                <Setter Property="Foreground" Value="#F4F4F4"></Setter>
+                <Setter Property="FontSize" Value="22"></Setter>
+                <Setter Property="FontFamily" Value="微软雅黑"></Setter>
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            </Style>
+            
+            <Style TargetType="TextBlock" x:Key="myTextModifyDabaseData">
+                <Setter Property="Foreground" Value="#333"></Setter>
+                <Setter Property="FontSize" Value="30"></Setter>
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="FontFamily" Value="微软雅黑"></Setter>
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+                <Setter Property="Margin" Value="50,0"></Setter>
+                <Setter Property="TextAlignment" Value="Right"></Setter>
+            </Style>
+            <SolidColorBrush x:Key="NiceBlue" Color="#1E9FFF" />
+            <SolidColorBrush x:Key="NiceRed" Color="#D40000" />
+            <SolidColorBrush x:Key="NiceGreen" Color="#009688" />
+            <SolidColorBrush x:Key="NiceGray" Color="Gray" />
+
+            <SolidColorBrush x:Key="FontColor" Color="White" />
+            <LinearGradientBrush  x:Key="red渐变画刷" StartPoint="1,0" EndPoint="1,1">
+                <GradientStop Color="#21DDE6" Offset="0" />
+                <GradientStop Color="#21DDE6" Offset="0.5" />
+                <GradientStop Color="#4795D1" Offset="0.5" />
+                <GradientStop Color="#4795D1" Offset="1" />
+            </LinearGradientBrush>
+
+            <!--#region TextBox -->
+            <Style x:Key="myTextBox"   TargetType="TextBox">
+                <Setter Property="Background" Value="White"/>
+                <!--<Setter Property="BorderBrush" Value="#FFABADB3"/>-->
+                <Setter Property="Foreground" Value="#333"/>
+                <!--<Setter Property="BorderThickness" Value="1"/>-->
+                <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="AllowDrop" Value="True"/>
+                <Setter Property="Tag" Value="请输入内容"/>
+                <Setter Property="AcceptsReturn" Value="True"/>
+                <Setter Property="AcceptsTab" Value="True"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TextBox}">
+                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="4">
+                                <Grid>
+                                    <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled"/>
+                                    <TextBlock x:Name="WARKTEXT" Text="{TemplateBinding Tag}" Foreground="#999999" Visibility="Collapsed" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                </Trigger>
+                                <Trigger Property="IsKeyboardFocused" Value="True">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Text" Value=""/>
+                                        <Condition Property="IsFocused" Value="False"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Visibility" TargetName="WARKTEXT" Value="Visible"/>
+                                </MultiTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsInactiveSelectionHighlightEnabled" Value="True"/>
+                            <Condition Property="IsSelectionActive" Value="False"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                    </MultiTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="TextBox" BasedOn="{StaticResource myTextBox}"/>
+
+            <!--#endregion-->
+
+
+            <!--#region 取消ListBox样式 -->
+            <Style TargetType="ListBoxItem" x:Key="ListBoxItemEmptyTemplate1234">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Border x:Name="BorderBackground"  BorderBrush="Transparent" CornerRadius="5" BorderThickness="1" Background="Transparent" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="true">
+                                    <Setter Property="Background" TargetName="BorderBackground"  Value="Transparent" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsFocused" Value="true">
+                        <Setter Property="Background" Value="Transparent"></Setter>
+                        <Setter Property="BorderBrush" Value="Transparent"></Setter>
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="true">
+                        <Setter Property="Background" Value="Transparent"></Setter>
+                        <Setter Property="BorderBrush" Value="Transparent"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <!--#endregion-->
+
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+        <Grid  >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition  Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Visibility="Visible"  MouseLeftButtonDown="Window_MouseLeftButtonDown"   Background="{StaticResource NiceBlue}" Height="40"  BorderBrush="#333">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="300"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                    <TextBlock Style="{StaticResource my大号字}">DaheUI框架</TextBlock>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition  Width="40"></ColumnDefinition>
+                            <ColumnDefinition  Width="40"></ColumnDefinition>
+                            <ColumnDefinition  Width="40"></ColumnDefinition>
+                            <ColumnDefinition  Width="10"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Click="ButtonMin_Click"
+                                       Grid.Column="1"
+                                        x:Name="Min"
+                                        Style="{StaticResource btnMin}" />
+                        <Button
+                                                 Grid.Column="2"
+                             Click="ButtonMin_Click"
+                                        x:Name="Max"
+                                        Style="{StaticResource btnMax}" />
+                        <Button
+                                                 Grid.Column="2"
+                                        x:Name="Full"
+                                         Click="ButtonMin_Click"
+                                        Cursor="Hand" Visibility="Collapsed"
+                                        Style="{StaticResource btnNormal}" />
+                        <Button
+                               Click="ButtonMin_Click"
+                                                 Grid.Column="3"
+                                        x:Name="Close"
+                                       Foreground="White"
+                                        IsTabStop="False"
+                                        Style="{StaticResource btnClose }" />
+                    </Grid>
+                </Grid>
+            </Border>
+        <Viewbox Name="viewSubject"  Visibility="Visible" Grid.Row="1" Stretch="Fill">
+            <Grid  Width="1920" Height="1080"  x:Name="myGrid" >
+                <gu:FlipView x:Name="FlipView" ArrowPlacement="Outside"
+                     Grid.Column="1" ShowIndex="False" ShowArrows="False" 
+                     ItemsSource="{Binding BookPages}"
+                     SelectedIndex="1"  Visibility="Collapsed">
+                    <gu:FlipView.ItemTemplate>
+                        <DataTemplate >
+                            <Border BorderThickness="1,1,1,1" BorderBrush="#009688" Background="White">
+                                <Image Source="{Binding BookContent}" Stretch="Fill"></Image>
+                            </Border>
+                        </DataTemplate>
+                    </gu:FlipView.ItemTemplate>
+                </gu:FlipView>
+                <!--<mycontrol:myContentPage></mycontrol:myContentPage>-->
+                <!--<ListBox  x:Name="myList"   Grid.Column="1"    ScrollViewer.CanContentScroll="True"   WindowChrome.IsHitTestVisibleInChrome="True" 
+                                 ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled"   
+                                 ItemContainerStyle="{StaticResource ListBoxItemEmptyTemplate1234}" 
+                      HorizontalContentAlignment="Center" HorizontalAlignment="Center"
+                          ItemsSource="{Binding CurrentPageDataList }" >
+                        <ListBox.Template>
+                            <ControlTemplate TargetType="{x:Type ListBox}">
+                                <WrapPanel Orientation="Horizontal" IsItemsHost="True" ScrollViewer.CanContentScroll="True"   
+                                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                            </ControlTemplate>
+                        </ListBox.Template>
+                    </ListBox>-->
+
+
+                <!--<mycontrol:My轮播 x:Name="my轮播"  Visibility="Collapsed"></mycontrol:My轮播  >-->
+                <!--<Grid>
+                        <Metro:MetroGroupBox Header="文本编辑器">
+                            <Grid>
+                                <StackPanel>
+                                    <Metro:MetroRichTextBox MaxHeight="50" Margin="5" IsEnabled="False">
+                                        <FlowDocument>
+                                            <Paragraph>
+                                                <Run Text="禁用" />
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </Metro:MetroRichTextBox>
+                                    <Metro:MetroRichTextBox x:Name="rt1" Margin="5" MaxHeight="50" IsReadOnly="True">
+                                        <FlowDocument>
+                                            <Paragraph>
+                                                <Run Text="阅读模式" />
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </Metro:MetroRichTextBox>
+                                    <Metro:MetroRichTextBox x:Name="rt3" MaxHeight="100" Margin="5" AutoLimitMouse="True">
+                                        <FlowDocument>
+                                            <Paragraph>
+                                                <Run Text="追加内容" />
+                                            </Paragraph>
+                                            <Paragraph>
+                                                <Run Text="自动高度"   />
+                                            </Paragraph>
+                                           
+                                        </FlowDocument>
+                                    </Metro:MetroRichTextBox>
+                                    <Metro:MetroRichTextBox Margin="5" MaxHeight="100" BorderThickness="0" CornerRadius="0" Background="#00000000" IsEnabled="False">
+                                        <FlowDocument>
+                                            <Paragraph>
+                                                <Run Text="修改外观的 MetroRichTextBox" />
+                                            </Paragraph>
+                                            <Paragraph>
+                                                <Run Text="禁用" />
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </Metro:MetroRichTextBox>
+                                    <Metro:MetroRichTextBox Margin="5" MaxHeight="100" BorderThickness="0" CornerRadius="0" Background="#00000000">
+                                        <FlowDocument>
+                                            <Paragraph>
+                                                <Run Text="修改外观的 MetroRichTextBox" />
+                                            </Paragraph>
+                                            <Paragraph>
+                                                <Run Text="正常" />
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </Metro:MetroRichTextBox>
+                                </StackPanel>
+                            </Grid>
+                        </Metro:MetroGroupBox>
+                    </Grid>-->
+                <!--<timeline:MyTimeLine  Background="White" StepValue="80"  Width="1680" Height="80" x:Name="myTimeLineControl" ></timeline:MyTimeLine>-->
+                <!--<mycontrol:My轮播 x:Name="MyPhotoGraph" Width="1920" Height="1080" Visibility="Collapsed"></mycontrol:My轮播>-->
+                <!--<Button Style="{StaticResource btnAdd}" Height="40" Width="120" Content="test" Click="Button_Click"></Button>-->
+                <!--#region 视频 -->
+
+
+                <!--<Grid>
+                        <vlcvideoplayer:VideoUserControl>
+                        </vlcvideoplayer:VideoUserControl>
+                    </Grid>-->
+                <!--#endregion-->
+            </Grid>
+        </Viewbox>
+
+
+        <Grid  x:Name="gridLoading"  Visibility="Collapsed"   IsVisibleChanged="gridLoading_IsVisibleChanged" Grid.Row="1">
+                <Border  Background="Black"  Opacity="0.2"></Border>
+                <pu:Loading  Width="220" x:Name="myLoad"
+                              IsLoading="True"
+                                    Height="220"
+                                    LoadingStyle="Ring"
+                                  Foreground="#1CFF00"
+                                    Background="#321CFF00" />
+                <TextBlock  Foreground="{StaticResource NiceBlue}"  FontSize="52"  Name="tbProgress"  FontWeight="Bold" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="0,400,0,0"></TextBlock>
+            </Grid>
+
+
+            <Button Width="180" Height="180" Visibility="Collapsed"  HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.01" Click="键盘弹出" Grid.Row="1"></Button>
+            <!--<Button Width="180" Height="180" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.01" Click="Button_Click_111"></Button>-->
+
+
+        </Grid>
+
+
+
+</Window>

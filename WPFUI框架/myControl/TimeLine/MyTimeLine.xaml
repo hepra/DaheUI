@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="UI框架.myControl.TimeLine.MyTimeLine"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UI框架.myControl.TimeLine" xmlns:rangeslider="clr-namespace:RangeSlider"
+             mc:Ignorable="d"  
+             d:DesignHeight="60" d:DesignWidth="1380">
+    <Grid  Height="60" Width="1380">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="1280"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border></Border>
+        <Canvas x:Name="CanDropCanvas" Width="1280" Grid.Column="1">
+        </Canvas>
+        <Button Grid.Column="2" Foreground="{StaticResource NiceBlue}" Content="+时间段" FontSize="16" Click="增加时间段"></Button>
+    </Grid>
+</UserControl>
